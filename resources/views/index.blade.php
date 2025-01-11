@@ -31,7 +31,7 @@
 
                     @foreach ($cuisines as $cuisine)
                         <li class="bg-gray-200 inline-flex rounded-full mb-1 p-1">
-                            <a href="{{ route('index', ['cuisineSlug' => $cuisine->name, 'guests' => $guests]) }}">
+                            <a href="{{ route('index', ['cuisine' => $cuisine->name, 'guests' => $guests]) }}">
                                 {{ $cuisine->name }} ({{ $cuisine->set_menus_count }})
                             </a>
                         </li>
@@ -55,7 +55,7 @@
             </div>
             
             <div class="pagination">
-                {{ $setMenus->appends(['cuisineSlug' => request('cuisineSlug'), 'guests' => $guests])->links() }}
+                {{ $setMenus->appends(['cuisine' => request('cuisine'), 'guests' => $guests])->links() }}
             </div>
         </div>
     </body>

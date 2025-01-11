@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Cuisine;
+use App\Models\SetMenu;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use App\Models\SetMenu;
-use App\Models\Cuisine;
 
 class FetchSetMenus extends Command
 {

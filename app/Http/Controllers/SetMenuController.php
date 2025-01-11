@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\SetMenu;
 use App\Models\Cuisine;
+use App\Models\SetMenu;
+use Illuminate\Http\Request;
 
 class SetMenuController extends Controller
 {
     public function showSetMenus(Request $request)
     {
-        $cuisineSlug = $request->query('cuisineSlug');
+        $cuisine = $request->query('cuisine');
         $guests = $request->query('guests', 1);
 
         $cuisines = Cuisine::withCount(['setMenus' => function ($query) {
@@ -21,9 +21,9 @@ class SetMenuController extends Controller
 
         $setMenus = SetMenu::with('cuisines')
             ->where('available', true)
-            ->when($cuisineSlug, function ($query) use ($cuisineSlug) {
-                $query->whereHas('cuisines', function ($q) use ($cuisineSlug) {
-                    $q->where('name', $cuisineSlug);
+            ->when($cuisine, function ($query) use ($cuisine) {
+                $query->whereHas('cuisines', function ($q) use ($cuisine) {
+                    $q->where('name', $cuisine);
                 });
             })
             ->orderBy('number_of_orders', 'desc')
